@@ -1,0 +1,76 @@
+package lchplayer.com.lichao.ppjock.view
+
+import android.annotation.SuppressLint
+import android.content.Context
+import android.content.res.ColorStateList
+import android.graphics.Color
+import android.text.TextUtils
+import android.util.AttributeSet
+import android.view.MenuItem
+import com.google.android.material.bottomnavigation.BottomNavigationItemView
+import com.google.android.material.bottomnavigation.BottomNavigationMenuView
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.bottomnavigation.LabelVisibilityMode
+import lchplayer.com.lichao.ppjock.R
+import lchplayer.com.lichao.ppjock.utils.AppConfig
+
+class AppBottomBar @JvmOverloads constructor(
+    context: Context?,
+    attrs: AttributeSet? = null,
+    defStyleAttr: Int = 0
+) : BottomNavigationView(context, attrs, defStyleAttr) {
+
+    val sIcons= arrayOf(R.drawable.icon_tab_home,R.drawable.icon_tab_sofa,R.drawable.icon_tab_publish,R.drawable.icon_tab_find,R.drawable.icon_tab_mine)
+
+    init {
+        initView()
+    }
+
+    @SuppressLint("RestrictedApi")
+    fun initView(){
+        var bottomBar =AppConfig.getBottomBar()
+        val tabs = bottomBar.tabs
+        val states = arrayOfNulls<IntArray>(2)
+        states[0] = intArrayOf(android.R.attr.state_selected)
+        states[1] = intArrayOf()
+        var colors= intArrayOf(Color.parseColor(bottomBar.activeColor),Color.parseColor(bottomBar.inActiveColor))
+        var colorStateList=ColorStateList(states,colors)
+        itemIconTintList=colorStateList
+        itemTextColor=colorStateList
+        labelVisibilityMode=LabelVisibilityMode.LABEL_VISIBILITY_LABELED
+        selectedItemId=bottomBar.selectTab
+        for(tab in tabs!!){
+            if(!tab.enable){
+                continue
+            }
+            val id = getId(tab.pageUrl)
+            if(id<0){
+                continue
+            }
+            val item = menu.add(0, 0, tab.index, tab.title)
+            item.setIcon(sIcons[tab.index])
+
+            for(tab in tabs!!){
+                val iconSize = dp2px(tab.size)
+                val menuView:BottomNavigationMenuView = getChildAt(0) as BottomNavigationMenuView
+                val itemView:BottomNavigationItemView = menuView.getChildAt(0) as BottomNavigationItemView
+                itemView.setIconSize(iconSize)
+
+                if(TextUtils.isEmpty(tab.title)){
+                    itemView.setIconTintList(ColorStateList.valueOf(Color.parseColor(tab.tintColor)))
+                    itemView.setShifting(false)
+                }
+            }
+        }
+    }
+
+    fun dp2px(size:Int):Int{
+        val value = context.resources.displayMetrics.density * size + 0.5f
+        return value.toInt()
+    }
+    
+    fun getId(pageUrl:String):Int{
+        val destination = AppConfig.getDestConfig().get(pageUrl)
+        return if(destination==null){ -1 }else destination.id
+    }
+}

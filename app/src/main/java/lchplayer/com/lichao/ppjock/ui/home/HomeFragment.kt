@@ -11,7 +11,7 @@ import androidx.lifecycle.ViewModelProviders
 import lchplayer.com.lichao.libnavannotation.FragmentDestination
 import lchplayer.com.lichao.ppjock.R
 
-@FragmentDestination(pageUrl="main/tabs/home",asStarter = true)
+@FragmentDestination("main/tabs/home",false,true)
 class HomeFragment : Fragment() {
 
     private lateinit var homeViewModel: HomeViewModel

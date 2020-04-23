@@ -11,7 +11,7 @@ import androidx.lifecycle.ViewModelProviders
 import lchplayer.com.lichao.libnavannotation.FragmentDestination
 import lchplayer.com.lichao.ppjock.R
 
-@FragmentDestination(pageUrl="main/tabs/dashboard",asStarter = false)
+@FragmentDestination("main/tabs/dashboard",false,false)
 class DashboardFragment : Fragment() {
 
     private lateinit var dashboardViewModel: DashboardViewModel

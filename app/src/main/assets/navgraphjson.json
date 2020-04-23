@@ -1,0 +1,26 @@
+{
+  "main/tabs/dashboard": {
+    "isFragment": true,
+    "asStarter": false,
+    "needLogin": false,
+    "pageUrl": "main/tabs/dashboard",
+    "id": 581904388,
+    "claz": "lchplayer.com.lichao.ppjock.ui.dashboard.DashboardFragment"
+  },
+  "main/tabs/home": {
+    "isFragment": true,
+    "asStarter": true,
+    "needLogin": false,
+    "pageUrl": "main/tabs/home",
+    "id": 896871312,
+    "claz": "lchplayer.com.lichao.ppjock.ui.home.HomeFragment"
+  },
+  "main/tabs/notifications": {
+    "isFragment": true,
+    "asStarter": false,
+    "needLogin": false,
+    "pageUrl": "main/tabs/notifications",
+    "id": 142058332,
+    "claz": "lchplayer.com.lichao.ppjock.ui.notifications.NotificationsFragment"
+  }
+}

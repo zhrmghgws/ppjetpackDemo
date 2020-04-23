@@ -4,6 +4,26 @@ apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'kotlin-noarg'
+apply plugin: 'kotlin-allopen'
+
+//指定使用此注解的都添加一个无参构造函数
+noArg{
+    annotation('lchplayer.com.lichao.ppjock.utils.PoKo')
+}
+//指定使用此注解的去掉final,都是open的
+allOpen{
+    annotation('lchplayer.com.lichao.ppjock.utils.PoKo')
+}
+
+kotlin{
+    experimental{
+        coroutines "enable"
+    }
+    androidExtensions{
+        experimental = true
+    }
+}
 
 android {
     compileSdkVersion 29
@@ -26,6 +46,9 @@ android {
         sourceCompatibility "1.8"
         targetCompatibility "1.8"
     }
+    lintOptions {
+        abortOnError false
+    }
 }
 
 dependencies {
@@ -44,8 +67,11 @@ dependencies {
     androidTestImplementation 'androidx.test:runner:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
 
+
+
     implementation project(":libnavannotation")
     kapt project(':libnavcompiler')
     kapt 'com.google.auto.service:auto-service:1.0-rc6'
+    implementation 'com.google.code.gson:gson:2.8.6'
 
 }

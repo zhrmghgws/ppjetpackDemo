@@ -11,7 +11,7 @@ import androidx.lifecycle.ViewModelProviders
 import lchplayer.com.lichao.libnavannotation.FragmentDestination
 import lchplayer.com.lichao.ppjock.R
 
-@FragmentDestination(pageUrl="main/tabs/notifications",asStarter = false)
+@FragmentDestination("main/tabs/notifications",false,false)
 class NotificationsFragment : Fragment() {
 
     private lateinit var notificationsViewModel: NotificationsViewModel
