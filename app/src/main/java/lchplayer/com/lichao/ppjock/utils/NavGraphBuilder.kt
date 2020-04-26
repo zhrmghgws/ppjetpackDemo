@@ -1,23 +1,26 @@
 package lchplayer.com.lichao.ppjock.utils
 
 import android.content.ComponentName
+import androidx.fragment.app.FragmentActivity
 import androidx.navigation.ActivityNavigator
 import androidx.navigation.NavController
 import androidx.navigation.NavGraph
 import androidx.navigation.NavGraphNavigator
 import androidx.navigation.fragment.FragmentNavigator
+import lchplayer.com.lichao.ppjock.FixFragmentNavigator
 
 object NavGraphBuilder{
-    public fun build(controller: NavController){
+    public fun build(controller: NavController,activity:FragmentActivity,containerId:Int){
         val provider = controller.navigatorProvider
-        var fragmentNavigator=provider.getNavigator(FragmentNavigator::class.java)
-        var activityNavigator=provider.getNavigator(ActivityNavigator::class.java)
         var navGraph=NavGraph(NavGraphNavigator(provider))
+        var fragmentNavigator=FixFragmentNavigator(activity,activity.supportFragmentManager,containerId)
+        provider.addNavigator(fragmentNavigator)
+        var activityNavigator=provider.getNavigator(ActivityNavigator::class.java)
         val destConfig=AppConfig.getDestConfig()
         for((key,value) in destConfig){
             if(value.isFragment){
                 val destiantion = fragmentNavigator.createDestination()
-                destiantion.className=value.claz
+                destiantion.className=value.clzName
                 destiantion.id=value.id
                 destiantion.addDeepLink(value.pageUrl)
                 navGraph.addDestination(destiantion)
@@ -25,7 +28,7 @@ object NavGraphBuilder{
                 val destination = activityNavigator.createDestination()
                 destination.id=value.id
                 destination.addDeepLink(value.pageUrl)
-                destination.setComponentName(ComponentName(AppGlobals.getApplication().packageName,value.claz))
+                destination.setComponentName(ComponentName(AppGlobals.getApplication().packageName,value.clzName))
                 navGraph.addDestination(destination)
             }
             if(value.asStarter){

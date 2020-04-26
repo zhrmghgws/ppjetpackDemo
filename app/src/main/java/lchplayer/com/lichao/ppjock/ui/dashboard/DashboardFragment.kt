@@ -1,6 +1,7 @@
 package lchplayer.com.lichao.ppjock.ui.dashboard
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +12,7 @@ import androidx.lifecycle.ViewModelProviders
 import lchplayer.com.lichao.libnavannotation.FragmentDestination
 import lchplayer.com.lichao.ppjock.R
 
-@FragmentDestination("main/tabs/dashboard",false,false)
+@FragmentDestination("main/tabs/sofa",false,false)
 class DashboardFragment : Fragment() {
 
     private lateinit var dashboardViewModel: DashboardViewModel

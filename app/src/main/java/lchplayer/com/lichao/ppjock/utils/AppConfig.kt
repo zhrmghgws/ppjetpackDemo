@@ -17,6 +17,7 @@ object AppConfig {
         if(sDestConfig==null){
             sDestConfig=HashMap()
             val parseFile = parseFile("navgraphjson.json")
+            println("parseFile::::${parseFile}")
             sDestConfig= gson.fromJson(parseFile,object :
                 TypeToken<HashMap<String, Destination>>(){}.type)
         }

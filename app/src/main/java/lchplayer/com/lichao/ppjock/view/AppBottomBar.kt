@@ -38,7 +38,8 @@ class AppBottomBar @JvmOverloads constructor(
         itemIconTintList=colorStateList
         itemTextColor=colorStateList
         labelVisibilityMode=LabelVisibilityMode.LABEL_VISIBILITY_LABELED
-        selectedItemId=bottomBar.selectTab
+        //selectedItemId=bottomBar.selectTab
+        println("tabs.size::${tabs.size}")
         for(tab in tabs!!){
             if(!tab.enable){
                 continue
@@ -47,20 +48,41 @@ class AppBottomBar @JvmOverloads constructor(
             if(id<0){
                 continue
             }
-            val item = menu.add(0, 0, tab.index, tab.title)
+            println("tab.index:::::${tab.index}")
+            val item = menu.add(0, id, tab.index, tab.title)
             item.setIcon(sIcons[tab.index])
-
-            for(tab in tabs!!){
-                val iconSize = dp2px(tab.size)
-                val menuView:BottomNavigationMenuView = getChildAt(0) as BottomNavigationMenuView
-                val itemView:BottomNavigationItemView = menuView.getChildAt(0) as BottomNavigationItemView
-                itemView.setIconSize(iconSize)
-
-                if(TextUtils.isEmpty(tab.title)){
-                    itemView.setIconTintList(ColorStateList.valueOf(Color.parseColor(tab.tintColor)))
-                    itemView.setShifting(false)
-                }
+        }
+        var index=0
+        for(tab in tabs!!){
+            if(!tab.enable){
+                continue
             }
+            var itemId=getId(tab.pageUrl)
+            if(itemId<0){
+                continue
+            }
+
+            val iconSize = dp2px(tab.size)
+            val menuView:BottomNavigationMenuView = getChildAt(0) as BottomNavigationMenuView
+            val itemView:BottomNavigationItemView = menuView.getChildAt(index) as BottomNavigationItemView
+            itemView.setIconSize(iconSize)
+
+            if(TextUtils.isEmpty(tab.title)){
+                val tintColor=if(tab.tintColor.isNullOrEmpty()) Color.parseColor("#ff678f") else Color.parseColor(tab.tintColor)
+                itemView.setIconTintList(ColorStateList.valueOf(tintColor))
+                itemView.setShifting(false)
+
+                /**
+                 * 如果想要禁止掉所有按钮的点击浮动效果。
+                 * 那么还需要给选中和未选中的按钮配置一样大小的字号。
+                 *
+                 *  在MainActivity布局的AppBottomBar标签增加如下配置，
+                 *  @style/active，@style/inActive 在style.xml中
+                 *  app:itemTextAppearanceActive="@style/active"
+                 *  app:itemTextAppearanceInactive="@style/inActive"
+                 */
+            }
+            index++
         }
     }
 

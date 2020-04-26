@@ -7,10 +7,12 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import kotlinx.android.synthetic.main.activity_main.*
 import lchplayer.com.lichao.ppjock.utils.NavGraphBuilder
 
 class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
@@ -18,8 +20,8 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val navView: BottomNavigationView = findViewById(R.id.nav_view)
-        navController = findNavController(R.id.nav_host_fragment)
+        //val navView: BottomNavigationView = findViewById(R.id.nav_view)
+        //navController = findNavController(R.id.nav_host_fragment)
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
 //        val appBarConfiguration = AppBarConfiguration(
@@ -29,9 +31,13 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
 //        )
 //        setupActionBarWithNavController(navController, appBarConfiguration)
         //navView.setupWithNavController(navController)
-        NavigationUI.setupWithNavController(navView,navController)
-        NavGraphBuilder.build(navController)
-        navView.setOnNavigationItemSelectedListener(this)
+        val fragment=supportFragmentManager.findFragmentById(R.id.nav_host_fragment)
+        navController = NavHostFragment.findNavController(fragment!!)
+
+        NavGraphBuilder.build(navController,this,fragment.id)
+        NavigationUI.setupWithNavController(nav_view,navController)
+        println("测试:::NavGraphBuilder:::build1111")
+        nav_view.setOnNavigationItemSelectedListener(this)
     }
 
     override fun onNavigationItemSelected(p0: MenuItem): Boolean {
