@@ -1,5 +1,6 @@
 package lchplayer.com.lichao.ppjock.utils
 
+import com.example.libcommon.AppGlobals
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import lchplayer.com.lichao.ppjock.model.BottomBar
@@ -34,7 +35,7 @@ object AppConfig {
     }
 
     fun parseFile(fileName:String):String{
-        val assets=AppGlobals.getApplication().resources.assets
+        val assets= AppGlobals.getApplication().resources.assets
         lateinit var stream:InputStream
         lateinit var reader:BufferedReader
         stream=assets.open(fileName)

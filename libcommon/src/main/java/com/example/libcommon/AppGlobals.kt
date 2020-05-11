@@ -1,4 +1,4 @@
-package lchplayer.com.lichao.ppjock.utils
+package com.example.libcommon
 
 import android.app.Application
 

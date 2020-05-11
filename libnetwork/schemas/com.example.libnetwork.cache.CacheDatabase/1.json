@@ -1,0 +1,61 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "2cad7027e250a2e4e943b1fd2a81d8b5",
+    "entities": [
+      {
+        "tableName": "Cache",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`cache` TEXT NOT NULL, `writeSuccessCount` INTEGER NOT NULL, `writeAbortCount` INTEGER NOT NULL, `networkCount` INTEGER NOT NULL, `hitCount` INTEGER NOT NULL, `requestCount` INTEGER NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "cache",
+            "columnName": "cache",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "writeSuccessCount",
+            "columnName": "writeSuccessCount",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "writeAbortCount",
+            "columnName": "writeAbortCount",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "networkCount",
+            "columnName": "networkCount",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "hitCount",
+            "columnName": "hitCount",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "requestCount",
+            "columnName": "requestCount",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"2cad7027e250a2e4e943b1fd2a81d8b5\")"
+    ]
+  }
+}
