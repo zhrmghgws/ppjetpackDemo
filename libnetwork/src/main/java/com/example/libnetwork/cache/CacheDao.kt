@@ -3,17 +3,23 @@ package com.example.libnetwork.cache
 import androidx.room.*
 
 @Dao
-interface CacheDao {
-
+abstract class BaseDao<T>{
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun sava(cache: Cache):Long
+    open abstract fun save(entry:T)
+    @Update
+    open abstract fun updata(entry: T)
+    @Delete
+    open abstract fun delete(entry:T)
+}
+
+@Dao
+abstract class CacheDao : BaseDao<Cache>(){
+
 
     @Query("select *from cache where `key`=:key")
-    fun getCache(key:String):Cache
+    abstract fun getCache(key:String):Cache
 
-    @Delete
-    fun delete(cache:Cache):Int
 
-    @Update(onConflict = OnConflictStrategy.REPLACE)
-    fun update(cache: Cache):Int
+
+
 }

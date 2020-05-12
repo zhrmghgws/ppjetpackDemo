@@ -6,7 +6,6 @@ import androidx.room.Room
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.example.libcommon.AppGlobals
-import okhttp3.Cache
 
 @Database(entities = [Cache::class],version=1,exportSchema =true)
 abstract class CacheDatabase : RoomDatabase() {

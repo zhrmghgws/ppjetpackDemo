@@ -8,7 +8,7 @@ import java.io.ObjectOutputStream
 object CacheManager {
     fun <T>sava(key:String,body:T ){
         var cache=Cache(key, toByteArray(body))
-        CacheDatabase.getInstance().cacheDao().sava(cache)
+        CacheDatabase.getInstance().cacheDao().save(cache)
     }
     fun getCache(key:String):Any?{
         val cache = CacheDatabase.getInstance().cacheDao().getCache(key)

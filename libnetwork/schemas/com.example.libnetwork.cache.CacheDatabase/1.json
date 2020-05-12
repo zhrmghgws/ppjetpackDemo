@@ -2,51 +2,29 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "2cad7027e250a2e4e943b1fd2a81d8b5",
+    "identityHash": "afb14261b560d89a4d6722af3f7cce7c",
     "entities": [
       {
-        "tableName": "Cache",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`cache` TEXT NOT NULL, `writeSuccessCount` INTEGER NOT NULL, `writeAbortCount` INTEGER NOT NULL, `networkCount` INTEGER NOT NULL, `hitCount` INTEGER NOT NULL, `requestCount` INTEGER NOT NULL)",
+        "tableName": "cache",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`key` TEXT NOT NULL, `data` BLOB NOT NULL, PRIMARY KEY(`key`))",
         "fields": [
           {
-            "fieldPath": "cache",
-            "columnName": "cache",
+            "fieldPath": "key",
+            "columnName": "key",
             "affinity": "TEXT",
             "notNull": true
           },
           {
-            "fieldPath": "writeSuccessCount",
-            "columnName": "writeSuccessCount",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "writeAbortCount",
-            "columnName": "writeAbortCount",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "networkCount",
-            "columnName": "networkCount",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "hitCount",
-            "columnName": "hitCount",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "requestCount",
-            "columnName": "requestCount",
-            "affinity": "INTEGER",
+            "fieldPath": "data",
+            "columnName": "data",
+            "affinity": "BLOB",
             "notNull": true
           }
         ],
         "primaryKey": {
-          "columnNames": [],
+          "columnNames": [
+            "key"
+          ],
           "autoGenerate": false
         },
         "indices": [],
@@ -55,7 +33,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"2cad7027e250a2e4e943b1fd2a81d8b5\")"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"afb14261b560d89a4d6722af3f7cce7c\")"
     ]
   }
 }
