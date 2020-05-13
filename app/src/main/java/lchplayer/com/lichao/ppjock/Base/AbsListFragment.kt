@@ -1,4 +1,4 @@
-package lchplayer.com.lichao.ppjock.view
+package lchplayer.com.lichao.ppjock.Base
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -14,15 +14,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.libcommon.EmptyView
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
-import com.scwang.smartrefresh.layout.api.RefreshLayout
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener
-import lchplayer.com.lichao.ppjock.AbsViewModel
 import lchplayer.com.lichao.ppjock.R
 import lchplayer.com.lichao.ppjock.databinding.LayoutRefreshViewBinding
 import java.lang.reflect.ParameterizedType
 
-abstract class AbsListFragment<T,M:AbsViewModel<T>> : Fragment(), OnRefreshListener,
+abstract class AbsListFragment<T,M: AbsViewModel<T>> : Fragment(), OnRefreshListener,
     OnLoadMoreListener {
     lateinit var binding:LayoutRefreshViewBinding
     lateinit var mRecyclerView:RecyclerView
@@ -61,12 +59,16 @@ abstract class AbsListFragment<T,M:AbsViewModel<T>> : Fragment(), OnRefreshListe
         super.onViewCreated(view, savedInstanceState)
         val arguments =
             (javaClass.genericSuperclass as ParameterizedType).actualTypeArguments
-        if(arguments.size>0){
+        if(arguments.size>1){
             var argument=arguments[1]
             val modelClaz = (argument as Class<*>).asSubclass(AbsViewModel::class.java)
             mViewModel=ViewModelProviders.of(this).get(modelClaz) as M
             mViewModel.pageData?.observe(this,
-                Observer<PagedList<T>> { t -> adapter.submitList(t) })
+                Observer<PagedList<T>> { t ->
+                    println("ovsever:::T:::${t.size}")
+                    adapter.submitList(t)
+
+                })
             mViewModel.bounaryPageData.observe(this,
                 Observer<Boolean> { t -> finishRefresh(t) })
         }

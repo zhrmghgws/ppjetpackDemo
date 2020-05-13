@@ -1,6 +1,7 @@
 package lchplayer.com.lichao.ppjock.model
 
 import android.os.Parcelable
+import com.example.libcommon.PoKo
 import kotlinx.android.parcel.Parcelize
 
 
@@ -15,6 +16,7 @@ import kotlinx.android.parcel.Parcelize
 						"hasDissed": false
 					}
  */
+@PoKo
 @Parcelize
 data class Ugc(val likeCount:Int,
                val shareCount:Int,

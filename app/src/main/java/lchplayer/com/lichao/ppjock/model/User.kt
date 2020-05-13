@@ -2,6 +2,7 @@ package lchplayer.com.lichao.ppjock.model
 
 import android.os.Parcelable
 import android.text.TextUtils
+import com.example.libcommon.PoKo
 import kotlinx.android.parcel.Parcelize
 
 /*
@@ -25,6 +26,7 @@ import kotlinx.android.parcel.Parcelize
 					"hasFollow": false
 				}
  */
+@PoKo
 @Parcelize
 data class User(
     val id:Int,
@@ -36,8 +38,8 @@ data class User(
     val topCommentCount:Int,
     val followCount:Int,
     val followerCount:Int,
-    val qqOpenId:Long,
-    val expires_time:Int,
+    val qqOpenId:String,
+    val expires_time:Long,
     val score:Int,
     val historyCount:Int,
     val commentCount:Int,

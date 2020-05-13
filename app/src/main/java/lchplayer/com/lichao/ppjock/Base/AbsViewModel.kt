@@ -1,4 +1,4 @@
-package lchplayer.com.lichao.ppjock
+package lchplayer.com.lichao.ppjock.Base
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

@@ -1,8 +1,8 @@
 package lchplayer.com.lichao.ppjock.model
 
 import android.os.Parcelable
+import com.example.libcommon.PoKo
 import kotlinx.android.parcel.Parcelize
-import lchplayer.com.lichao.ppjock.utils.PoKo
 
 @PoKo
 @Parcelize

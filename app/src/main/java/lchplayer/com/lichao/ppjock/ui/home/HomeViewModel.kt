@@ -7,7 +7,8 @@ import com.example.libnetwork.ApiResponse
 import com.example.libnetwork.ApiService
 import com.example.libnetwork.JsonCallback
 import com.example.libnetwork.Request
-import lchplayer.com.lichao.ppjock.AbsViewModel
+import com.google.gson.Gson
+import lchplayer.com.lichao.ppjock.Base.AbsViewModel
 import lchplayer.com.lichao.ppjock.model.Feed
 import java.util.*
 import com.google.gson.reflect.TypeToken
@@ -68,8 +69,10 @@ class HomeViewModel : AbsViewModel<Feed>() {
         var newRequest=if(witchCache) { request.clone() } else request
         newRequest.cacheStrategy(if(key==0) Request.NET_CACHE else Request.NET_ONLY)
         val response = newRequest.execute()
+        println("response.body:::::${Gson().toJson(response.body)}")
         var data=if(response.body==null) Collections.emptyList() else response.body
         callback.onResult(data!!)
+        println("data.size:::::${data.size}")
         if(key>0){
             bounaryPageData.postValue(data.size>0)
         }

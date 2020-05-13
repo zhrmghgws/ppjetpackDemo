@@ -4,17 +4,6 @@ apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
-apply plugin: 'kotlin-noarg'
-apply plugin: 'kotlin-allopen'
-
-//指定使用此注解的都添加一个无参构造函数
-noArg{
-    annotation('lchplayer.com.lichao.ppjock.utils.PoKo')
-}
-//指定使用此注解的去掉final,都是open的
-allOpen{
-    annotation('lchplayer.com.lichao.ppjock.utils.PoKo')
-}
 
 kotlin{
     experimental{

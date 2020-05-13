@@ -5,6 +5,7 @@ import android.os.Parcelable
 import android.util.Log
 import androidx.annotation.IntDef
 import androidx.arch.core.executor.ArchTaskExecutor
+import com.alibaba.fastjson.JSON
 import com.example.libnetwork.cache.CacheManager
 import okhttp3.Call
 import okhttp3.Callback
@@ -40,10 +41,14 @@ abstract class Request<T, R : Request<T, R>?>(val mUrl: String) :Cloneable{
 
     fun addParam(key: String, value: Any): R {
         try {
-            val type = value.javaClass.getField("TYPE")
-            val clazz = type[null] as Class<*>
-            if (clazz.isPrimitive) {
-                params[key] = value
+            if(value.javaClass == String::class.java){
+                params[key]=value
+            }else{
+                val type = value.javaClass.getField("TYPE")
+                val clazz = type[null] as Class<*>
+                if (clazz.isPrimitive) {
+                    params[key] = value
+                }
             }
         } catch (e: NoSuchFieldException) {
             e.printStackTrace()
@@ -159,11 +164,12 @@ abstract class Request<T, R : Request<T, R>?>(val mUrl: String) :Cloneable{
                     if(callback!=null){
                         val type:ParameterizedType = callback.javaClass.genericSuperclass as ParameterizedType
                         var argument=type.actualTypeArguments[0]
-                        result.body=convert?.convert(content,argument) as T
+                        result.body=convert?.convert(content,argument)
                     }else if(mType!=null){
-                        result.body=convert?.convert(content,mType!!) as T
+                        result.body=convert?.convert(content,mType!!)
                     }else if(mClaz!=null){
-                        result.body=convert?.convert(content,mClaz!!) as T
+                        result.body=convert?.convert(content,mClaz!!)
+
                     }else{
                         Log.e("respose:::","无法解析")
                     }
@@ -173,7 +179,8 @@ abstract class Request<T, R : Request<T, R>?>(val mUrl: String) :Cloneable{
             }
         }catch (e:Exception){
             message=e.message
-            success=false;
+            success=false
+            e.printStackTrace()
         }
         result.success=success
         result.status=status

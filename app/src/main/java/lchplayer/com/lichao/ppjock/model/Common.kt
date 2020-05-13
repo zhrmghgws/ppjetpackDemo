@@ -1,6 +1,7 @@
 package lchplayer.com.lichao.ppjock.model
 
 import android.os.Parcelable
+import com.example.libcommon.PoKo
 import kotlinx.android.parcel.Parcelize
 
 /*
@@ -49,14 +50,14 @@ import kotlinx.android.parcel.Parcelize
 					}
 				}
  */
-
+@PoKo
 @Parcelize
 data class Common(val id:Int,
-                  val itemId:Int,
-                  val commentId:Int,
-                  val userId:Int,
+                  val itemId:Long,
+                  val commentId:Long,
+                  val userId:Long,
                   val commentType:Int,
-                  val createTime:Int,
+                  val createTime:Long,
                   val commentCount:Int,
                   val likeCount:Int,
                   val commentText:String,

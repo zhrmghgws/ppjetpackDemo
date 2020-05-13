@@ -1,18 +1,9 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
-apply plugin: 'kotlin-noarg'
-apply plugin: 'kotlin-allopen'
 apply plugin: 'kotlin-kapt'
 
-//指定使用此注解的都添加一个无参构造函数
-noArg{
-    annotation('com.example.libnetwork.uitls.PoKo')
-}
-//指定使用此注解的去掉final,都是open的
-allOpen{
-    annotation('com.example.libnetwork.uitls.PoKo')
-}
+
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.3"
@@ -53,7 +44,6 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     implementation 'com.squareup.okhttp3:okhttp:4.5.0'
     implementation 'com.squareup.okhttp3:logging-interceptor:4.5.0'
-    implementation 'com.alibaba:fastjson:1.2.68'
 
     api "androidx.room:room-runtime:2.2.3"
     api "androidx.room:room-ktx:2.2.3"
