@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.paging.PagedList
 import androidx.paging.PagedListAdapter
@@ -42,13 +43,17 @@ abstract class AbsListFragment<T,M: AbsViewModel<T>> : Fragment(), OnRefreshList
         mRefreshLayout.setEnableLoadMore(true)
         mRefreshLayout.setOnRefreshListener(this)
         mRefreshLayout.setOnLoadMoreListener(this)
+
         adapter= getMAdapter()
+        mRecyclerView.adapter= adapter
+
         mRecyclerView.layoutManager=LinearLayoutManager(context,LinearLayoutManager.VERTICAL,false)
         mRecyclerView.itemAnimator=null
+
         var decoration=DividerItemDecoration(context,LinearLayoutManager.VERTICAL)
         decoration.setDrawable(context!!.getDrawable(R.drawable.list_divider)!!)
         mRecyclerView.addItemDecoration(decoration)
-        mRecyclerView.adapter= adapter
+
         afterCreateView()
         return binding.root
     }
@@ -63,18 +68,20 @@ abstract class AbsListFragment<T,M: AbsViewModel<T>> : Fragment(), OnRefreshList
             var argument=arguments[1]
             val modelClaz = (argument as Class<*>).asSubclass(AbsViewModel::class.java)
             mViewModel=ViewModelProviders.of(this).get(modelClaz) as M
-            mViewModel.pageData?.observe(this,
+            //mViewModel=ViewModelProvider.NewInstanceFactory().create(modelClaz) as M
+            println("AbsListFragment::::::onViewCreated11111")
+            mViewModel.pageData?.observe(viewLifecycleOwner,
                 Observer<PagedList<T>> { t ->
                     println("ovsever:::T:::${t.size}")
                     adapter.submitList(t)
 
                 })
-            mViewModel.bounaryPageData.observe(this,
+            mViewModel.bounaryPageData.observe(viewLifecycleOwner,
                 Observer<Boolean> { t -> finishRefresh(t) })
         }
     }
 
-    abstract fun <T> getMAdapter():PagedListAdapter<T,RecyclerView.ViewHolder>
+    abstract fun getMAdapter():PagedListAdapter<T,RecyclerView.ViewHolder>
 
     fun submitList(pagedList:PagedList<T>){
         if(pagedList.size>0){

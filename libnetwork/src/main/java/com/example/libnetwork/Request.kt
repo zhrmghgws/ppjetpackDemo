@@ -5,7 +5,6 @@ import android.os.Parcelable
 import android.util.Log
 import androidx.annotation.IntDef
 import androidx.arch.core.executor.ArchTaskExecutor
-import com.alibaba.fastjson.JSON
 import com.example.libnetwork.cache.CacheManager
 import okhttp3.Call
 import okhttp3.Callback

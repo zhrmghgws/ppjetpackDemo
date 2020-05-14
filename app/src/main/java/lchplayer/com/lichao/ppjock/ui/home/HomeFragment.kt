@@ -12,9 +12,9 @@ class HomeFragment : AbsListFragment<Feed, HomeViewModel>() {
 
 
 
-    override fun <T> getMAdapter(): PagedListAdapter<T, RecyclerView.ViewHolder> {
+    override fun getMAdapter(): PagedListAdapter<Feed, RecyclerView.ViewHolder> {
         var feedType=if(arguments==null) "all" else arguments!!.getString("feedType")
-        return FeedAdapter(context!!,feedType!!) as PagedListAdapter<T, RecyclerView.ViewHolder>
+        return FeedAdapter(context!!,feedType!!) as PagedListAdapter<Feed, RecyclerView.ViewHolder>
     }
 
     override fun onRefresh(refreshLayout: RefreshLayout) {
