@@ -1,8 +1,9 @@
 package lchplayer.com.lichao.ppjock.model
 
+import android.os.Parcelable
 import com.example.libcommon.PoKo
+import kotlinx.android.parcel.Parcelize
 
-@PoKo
 data class Destination(val isFragment:Boolean=false,
                        val asStarter:Boolean=false,
                        val needLogin :Boolean=false,

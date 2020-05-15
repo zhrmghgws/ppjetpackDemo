@@ -1,6 +1,7 @@
 package lchplayer.com.lichao.ppjock
 
 import android.os.Bundle
+import android.os.Parcelable
 import android.text.TextUtils
 import android.view.MenuItem
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -13,6 +14,8 @@ import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import kotlinx.android.synthetic.main.activity_main.*
+import lchplayer.com.lichao.ppjock.model.Destination
+import lchplayer.com.lichao.ppjock.model.Feed
 import lchplayer.com.lichao.ppjock.utils.NavGraphBuilder
 
 class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener {

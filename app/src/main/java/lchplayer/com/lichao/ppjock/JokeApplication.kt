@@ -7,6 +7,6 @@ import com.example.libnetwork.ApiService
 class JokeApplication: Application() {
     override fun onCreate() {
         super.onCreate()
-        ApiService.initBase("http://10.100.101.155:8080/serverdemo")
+        ApiService.initBase<Any>("http://10.100.101.155:8080/serverdemo",null)
     }
 }

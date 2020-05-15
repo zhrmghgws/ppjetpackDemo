@@ -4,6 +4,7 @@ import android.os.Parcelable
 import android.text.TextUtils
 import com.example.libcommon.PoKo
 import kotlinx.android.parcel.Parcelize
+import java.io.Serializable
 
 /*
                 "id": 428,
@@ -20,25 +21,23 @@ import kotlinx.android.parcel.Parcelize
 				"url": "https://pipijoke.oss-cn-hangzhou.aliyuncs.com/New%20Year%20-%2029212-video.mp4",
 				"cover": "https://pipijoke.oss-cn-hangzhou.aliyuncs.com/2020%E5%B0%81%E9%9D%A2%E5%9B%BE.png",
  */
-@PoKo
-@Parcelize
-data class Feed(val id:Int,
-                val itemId:Long,
-                val itemType:Int,
-                val createTime:Long,
-                val duration:Double,
-                val feeds_text:String,
-                val authorId:Long,
-                val activityIcon:String,
-                val activityText:String,
-                val width:Int,
-                val height:Int,
-                val url:String,
-                val cover:String,
-                val author:User,
-                val topComment:Common,
-                val ugc:Ugc
-):Parcelable{
+class Feed : Serializable{
+    val id:Int=0
+    val itemId:Long=0
+    val itemType:Int=0
+    val createTime:Long=0
+    val duration:Double=0.0
+    val feeds_text:String?=null
+    val authorId:Long=0
+    val activityIcon:String?=null
+    val activityText:String?=null
+    val width:Int=0
+    val height:Int=0
+    val url:String?=null
+    val cover:String?=null
+    val author:User?=null
+    val topComment:Common?=null
+    val ugc:Ugc?=null
     override fun equals(other: Any?): Boolean {
         if(other ==null || !(other is Feed))
             return false

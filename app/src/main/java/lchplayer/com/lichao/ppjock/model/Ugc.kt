@@ -3,6 +3,7 @@ package lchplayer.com.lichao.ppjock.model
 import android.os.Parcelable
 import com.example.libcommon.PoKo
 import kotlinx.android.parcel.Parcelize
+import java.io.Serializable
 
 
 /*
@@ -16,16 +17,14 @@ import kotlinx.android.parcel.Parcelize
 						"hasDissed": false
 					}
  */
-@PoKo
-@Parcelize
-data class Ugc(val likeCount:Int,
-               val shareCount:Int,
-               val commentCount:Int,
-               val hasFavorite:Boolean,
-               val hasLiked:Boolean,
-               val hasdiss:Boolean,
-               val hasDissed:Boolean
-):Parcelable{
+class Ugc : Serializable{
+    val likeCount:Int=0
+    val shareCount:Int=0
+    val commentCount:Int=0
+    val hasFavorite:Boolean=false
+    val hasLiked:Boolean=false
+    val hasdiss:Boolean=false
+    val hasDissed:Boolean=false
     override fun equals(other: Any?): Boolean {
         if(other==null || !(other is Ugc))
             return false

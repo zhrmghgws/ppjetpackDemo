@@ -10,42 +10,47 @@ import javax.net.ssl.SSLContext
 import javax.net.ssl.TrustManager
 import javax.net.ssl.X509TrustManager
 
-object ApiService {
-    internal var okHttpClient: OkHttpClient?=null
-    var sBaseUrl:String?=null
-    init {
-        val intercepter=HttpLoggingInterceptor()
-        intercepter.level=HttpLoggingInterceptor.Level.BODY
-        okHttpClient=OkHttpClient.Builder()
-            .readTimeout(5,TimeUnit.SECONDS)
-            .writeTimeout(5,TimeUnit.SECONDS)
-            .connectTimeout(5,TimeUnit.SECONDS)
-            .addInterceptor(intercepter)
-            .build()
-        val trustManager= arrayOf<TrustManager>(object : X509TrustManager {
-            override fun checkClientTrusted(chain: Array<out X509Certificate>?, authType: String?) {
-            }
+class ApiService {
 
-            override fun checkServerTrusted(chain: Array<out X509Certificate>?, authType: String?) {
-            }
+    companion object{
+        var okHttpClient: OkHttpClient?=null
+        var sBaseUrl:String?=null
+        var mConvert:Convert<*>?=null
+        fun <T>initBase(baseUrl:String,convert: Convert<T>?){
+            sBaseUrl=baseUrl
+            mConvert=convert?:JsonConvert<T>()
+        }
+        fun <T>get(url:String):GetRequest<T>{
+            return GetRequest(sBaseUrl+url)
+        }
+        fun <T>post(url:String):PostRequest<T>{
+            return PostRequest(sBaseUrl+url)
+        }
+        init {
+            val intercepter=HttpLoggingInterceptor()
+            intercepter.level=HttpLoggingInterceptor.Level.BODY
+            okHttpClient=OkHttpClient.Builder()
+                .readTimeout(5,TimeUnit.SECONDS)
+                .writeTimeout(5,TimeUnit.SECONDS)
+                .connectTimeout(5,TimeUnit.SECONDS)
+                .addInterceptor(intercepter)
+                .build()
+            val trustManager= arrayOf<TrustManager>(object : X509TrustManager {
+                override fun checkClientTrusted(chain: Array<out X509Certificate>?, authType: String?) {
+                }
 
-            override fun getAcceptedIssuers(): Array<X509Certificate> {
-                return arrayOf()
-            }
+                override fun checkServerTrusted(chain: Array<out X509Certificate>?, authType: String?) {
+                }
 
-        })
-        val ssl=SSLContext.getInstance("SSL")
-        ssl.init(null,trustManager, SecureRandom())
-        HttpsURLConnection.setDefaultSSLSocketFactory(ssl.socketFactory)
-        HttpsURLConnection.setDefaultHostnameVerifier { hostname, session -> true }
-    }
-    fun initBase(baseUrl:String){
-        sBaseUrl=baseUrl
-    }
-    fun <T>get(url:String):GetRequest<T>{
-        return GetRequest(sBaseUrl+url)
-    }
-    fun <T>post(url:String):PostRequest<T>{
-        return PostRequest(sBaseUrl+url)
+                override fun getAcceptedIssuers(): Array<X509Certificate> {
+                    return arrayOf()
+                }
+
+            })
+            val ssl=SSLContext.getInstance("SSL")
+            ssl.init(null,trustManager, SecureRandom())
+            HttpsURLConnection.setDefaultSSLSocketFactory(ssl.socketFactory)
+            HttpsURLConnection.setDefaultHostnameVerifier { hostname, session -> true }
+        }
     }
 }

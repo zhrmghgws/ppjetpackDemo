@@ -1,15 +1,18 @@
 package com.example.libnetwork
 
 import android.annotation.SuppressLint
+import android.os.Parcel
 import android.os.Parcelable
 import android.util.Log
 import androidx.annotation.IntDef
 import androidx.arch.core.executor.ArchTaskExecutor
 import com.example.libnetwork.cache.CacheManager
+import kotlinx.android.parcel.Parcelize
 import okhttp3.Call
 import okhttp3.Callback
 import okhttp3.Response
 import java.io.IOException
+import java.io.Serializable
 import java.lang.Exception
 import java.lang.reflect.ParameterizedType
 import java.lang.reflect.Type
@@ -88,7 +91,7 @@ abstract class Request<T, R : Request<T, R>?>(val mUrl: String) :Cloneable{
             })
         }
         if(mCacheStrategy!= CACHE_ONLY){
-            call.enqueue(object :Callback{
+            getCall().enqueue(object :Callback{
                 override fun onFailure(call: Call, e: IOException) {
                     var response=ApiResponse<T>()
                     response.message=e.message
@@ -124,7 +127,7 @@ abstract class Request<T, R : Request<T, R>?>(val mUrl: String) :Cloneable{
         }
         var result:ApiResponse<T>?=null
         try {
-            val response = call.execute()
+            val response = getCall().execute()
             result= parseResponse(response, null)
         }catch (e:Exception){
             e.printStackTrace()
@@ -135,13 +138,12 @@ abstract class Request<T, R : Request<T, R>?>(val mUrl: String) :Cloneable{
         }
         return result!!
     }
-    private val call: Call
-        private get() {
+    private fun getCall():Call {
             val builder = okhttp3.Request.Builder()
             addHeaders(builder)
             val request = generateRequest(builder)
             return ApiService.okHttpClient!!.newCall(request)
-        }
+    }
 
     protected abstract fun generateRequest(builder: okhttp3.Request.Builder): okhttp3.Request
 
@@ -155,7 +157,7 @@ abstract class Request<T, R : Request<T, R>?>(val mUrl: String) :Cloneable{
         var status=response.code
         var success=response.isSuccessful
         var result=ApiResponse<T>()
-        var convert=JsonConvert<T>()
+        var convert=ApiService.mConvert?:JsonConvert<T>()
         try {
             if(response.body!=null){
                 var content=response.body!!.string()
@@ -163,11 +165,11 @@ abstract class Request<T, R : Request<T, R>?>(val mUrl: String) :Cloneable{
                     if(callback!=null){
                         val type:ParameterizedType = callback.javaClass.genericSuperclass as ParameterizedType
                         var argument=type.actualTypeArguments[0]
-                        result.body=convert?.convert(content,argument)
+                        result.body=convert?.convert(content,argument) as T
                     }else if(mType!=null){
-                        result.body=convert?.convert(content,mType!!)
+                        result.body=convert?.convert(content,mType!!) as T
                     }else if(mClaz!=null){
-                        result.body=convert?.convert(content,mClaz!!)
+                        result.body=convert?.convert(content,mClaz!!) as T
 
                     }else{
                         Log.e("respose:::","无法解析")
@@ -184,9 +186,9 @@ abstract class Request<T, R : Request<T, R>?>(val mUrl: String) :Cloneable{
         result.success=success
         result.status=status
         result.message=message
-
-        if(mCacheStrategy!= NET_ONLY && result.success && result.body!=null && result.body is Parcelable){
+        if(mCacheStrategy!= NET_ONLY && result.success && result.body!=null && result.body is Serializable){
             saveCache(result.body as T)
+            println("Request::::saveCache::${result.body}")
         }
         return result
     }

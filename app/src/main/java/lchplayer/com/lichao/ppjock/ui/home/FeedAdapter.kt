@@ -54,7 +54,7 @@ class FeedAdapter(context:Context,var category:String) :PagedListAdapter<Feed,Fe
             }else{
                 var videoBinding= binding as LayoutFeedTypeVideoBinding
                 videoBinding.feed=item
-                videoBinding.listPlayView.bindData(category,item.width,item.height,item.cover,item.url)
+                videoBinding.listPlayView.bindData(category,item.width,item.height,item.cover!!,item.url!!)
             }
         }
 

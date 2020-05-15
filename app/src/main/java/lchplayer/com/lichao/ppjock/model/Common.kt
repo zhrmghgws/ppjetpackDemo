@@ -3,6 +3,7 @@ package lchplayer.com.lichao.ppjock.model
 import android.os.Parcelable
 import com.example.libcommon.PoKo
 import kotlinx.android.parcel.Parcelize
+import java.io.Serializable
 
 /*
 "topComment": {
@@ -50,26 +51,23 @@ import kotlinx.android.parcel.Parcelize
 					}
 				}
  */
-@PoKo
-@Parcelize
-data class Common(val id:Int,
-                  val itemId:Long,
-                  val commentId:Long,
-                  val userId:Long,
-                  val commentType:Int,
-                  val createTime:Long,
-                  val commentCount:Int,
-                  val likeCount:Int,
-                  val commentText:String,
-                  val imageUrl:String,
-                  val videoUrl:String,
-                  val width:Int,
-                  val height:Int,
-                  val hasLiked:Boolean,
-                  val author:User,
-                  val ugc:Ugc
-
-):Parcelable{
+class Common : Serializable{
+    val id:Int=0
+    val itemId:Long=0
+    val commentId:Long=0
+    val userId:Long=0
+    val commentType:Int=0
+    val createTime:Long=0
+    val commentCount:Int=0
+    val likeCount:Int=0
+    val commentText:String?=null
+    val imageUrl:String?=null
+    val videoUrl:String?=null
+    val width:Int=0
+    val height:Int=0
+    val hasLiked:Boolean=false
+    val author:User?=null
+    val ugc:Ugc?=null
     override fun equals(other: Any?): Boolean {
         if(other==null || !(other is Common))
             return false

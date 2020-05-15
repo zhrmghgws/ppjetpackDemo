@@ -67,16 +67,15 @@ abstract class AbsListFragment<T,M: AbsViewModel<T>> : Fragment(), OnRefreshList
         if(arguments.size>1){
             var argument=arguments[1]
             val modelClaz = (argument as Class<*>).asSubclass(AbsViewModel::class.java)
-            mViewModel=ViewModelProviders.of(this).get(modelClaz) as M
-            //mViewModel=ViewModelProvider.NewInstanceFactory().create(modelClaz) as M
+            mViewModel=ViewModelProvider.NewInstanceFactory().create(modelClaz) as M
             println("AbsListFragment::::::onViewCreated11111")
-            mViewModel.pageData?.observe(viewLifecycleOwner,
+            mViewModel.pageData?.observe(this,
                 Observer<PagedList<T>> { t ->
                     println("ovsever:::T:::${t.size}")
                     adapter.submitList(t)
 
                 })
-            mViewModel.bounaryPageData.observe(viewLifecycleOwner,
+            mViewModel.bounaryPageData.observe(this,
                 Observer<Boolean> { t -> finishRefresh(t) })
         }
     }

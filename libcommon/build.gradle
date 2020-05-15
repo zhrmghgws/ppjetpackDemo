@@ -47,7 +47,8 @@ dependencies {
     api 'jp.wasabeef:glide-transformations:4.0.0'
     kapt 'com.github.bumptech.glide:compiler:4.9.0'
 
-
+//    //序列化
+//    api "org.jetbrains.kotlinx:kotlinx-serialization-runtime:0.20.0"
 
     //material组件
     api 'com.google.android.material:material:1.0.0'

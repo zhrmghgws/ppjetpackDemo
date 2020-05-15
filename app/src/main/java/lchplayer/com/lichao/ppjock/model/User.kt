@@ -1,10 +1,10 @@
 package lchplayer.com.lichao.ppjock.model
 
+import android.os.Parcel
 import android.os.Parcelable
 import android.text.TextUtils
 import com.example.libcommon.PoKo
-import kotlinx.android.parcel.Parcelize
-
+import java.io.Serializable
 /*
 {
 					"id": 1250,
@@ -27,26 +27,26 @@ import kotlinx.android.parcel.Parcelize
 				}
  */
 @PoKo
-@Parcelize
-data class User(
-    val id:Int,
-    val userId:Long,
-    val name:String,
-    val avatar:String,
-    val description:String,
-    val likeCount:Int,
-    val topCommentCount:Int,
-    val followCount:Int,
-    val followerCount:Int,
-    val qqOpenId:String,
-    val expires_time:Long,
-    val score:Int,
-    val historyCount:Int,
-    val commentCount:Int,
-    val favoriteCount:Int,
-    val feedCount:Int,
-    val hasFollow:Boolean
-):Parcelable{
+ class User : Serializable {
+    val id:Int=0
+    val userId:Long=0
+    val name:String?=null
+    val avatar:String?=null
+    val description:String?=null
+    val likeCount:Int=0
+    val topCommentCount:Int=0
+    val followCount:Int=0
+    val followerCount:Int=0
+    val qqOpenId:String?=null
+    val expires_time:Long=0
+    val score:Int=0
+    val historyCount:Int=0
+    val commentCount:Int=0
+    val favoriteCount:Int=0
+    val feedCount:Int=0
+    val hasFollow:Boolean=false
+
+
     override fun equals(other: Any?): Boolean {
         if(other==null || !(other is User))
             return false

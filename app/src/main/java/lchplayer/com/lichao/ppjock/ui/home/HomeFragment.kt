@@ -25,5 +25,6 @@ class HomeFragment : AbsListFragment<Feed, HomeViewModel>() {
     }
 
     override fun afterCreateView() {
+
     }
 }

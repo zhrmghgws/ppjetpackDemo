@@ -5,6 +5,7 @@ import java.net.URLEncoder
 
 object UrlCreator {
     fun creatUrlFromParams(url:String,params:Map<String,Any>):String{
+        if( params.isEmpty()) return url
         var builder= StringBuilder()
         builder.append(url)
         if(url.indexOf("?")>0 || url.indexOf("&") >0){

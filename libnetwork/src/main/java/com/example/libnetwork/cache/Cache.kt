@@ -6,6 +6,5 @@ import androidx.room.PrimaryKey
 import com.example.libcommon.PoKo
 import kotlinx.android.parcel.Parcelize
 
-@PoKo
 @Entity(tableName = "cache")
 data class Cache(@PrimaryKey(autoGenerate = false) var key:String, var data:ByteArray)
